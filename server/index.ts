@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
   port: 3307,
   user: 'docker',
   password: 'docker',
-  database: 'test'
+  database: 'murmur_db'
 });
 
 connection.connect();
@@ -31,7 +31,7 @@ router.get('/api/getTest', (req, res) => {
 
 //Post example
 router.post('/api/postTest', (req, res) => {
-  connection.query('select * from test', function (err, results, fields) {
+  connection.query('select * from users', function (err, results, fields) {
     if (err) throw err
     res.send(results)
   });
