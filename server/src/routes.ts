@@ -1,5 +1,6 @@
 import {UserController} from "./controller/UserController";
 import {MurmurController} from "./controller/MurmurController";
+import { RelationshipController } from "./controller/RelationshipController";
 
 export const Routes = [{
     method: "get",
@@ -41,5 +42,26 @@ export const Routes = [{
     method: "delete",
     route: "/api/murmurs/:id",
     controller: MurmurController,
+    action: "remove"
+},
+{
+    method: "get",
+    route: "/api/relationship",
+    controller: RelationshipController,
+    action: "all"
+}, {
+    method: "get",
+    route: "/api/relationship/:id",
+    controller: RelationshipController,
+    action: "one"
+}, {
+    method: "post",
+    route: "/api/relationship",
+    controller: RelationshipController,
+    action: "save"
+}, {
+    method: "delete",
+    route: "/api/relationship/:id",
+    controller: RelationshipController,
     action: "remove"
 }];
