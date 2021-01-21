@@ -8,8 +8,8 @@
 <script lang="ts">
 export default {
   async asyncData({ $axios }): Promise<object> {
-    const res = await $axios.$post('http://localhost:3000/api/postTest')
-    console.log(res)
+    const res = await $axios.$get('http://localhost:3001/api/users')
+    console.log(res[0])
     return {
       data: res,
     }
