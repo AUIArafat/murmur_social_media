@@ -1,12 +1,14 @@
 <template>
   <div>
-    <header>header</header>
+    <Navbar/>
     <nuxt />
-    <footer>footer</footer>
+    <Footer/>
   </div>
 </template>
 
 <script lang="ts">
+import Navbar from "components/Navbar";
+import Footer from "components/Footer"
 export default {
   data() {
     return {}

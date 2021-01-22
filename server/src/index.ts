@@ -4,16 +4,28 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import {Request, Response} from "express";
 import {Routes} from "./routes";
-import {User} from "./entity/User";
-import {UserController} from "./controller/UserController";
-import { Murmur } from "./entity/Murmur";
 
 createConnection().then(async connection => {
 
     // create express app
     const app = express();
+    var cors = require('cors')
     app.use(bodyParser.json());
+    app.use(cors())
+    app.options('*', cors())
 
+    //cors setting
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*')
+        res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, x-access-token')
+        if (req.method === 'OPTIONS') {
+          res.sendStatus(200)
+        }
+        else {
+          next()
+        }
+    })
     // register express routes from defined application routes
     Routes.forEach(route => {
         (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
