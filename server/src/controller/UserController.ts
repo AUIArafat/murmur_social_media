@@ -21,16 +21,16 @@ export class UserController {
                 bcrypt.hash(request.body.password, 10, (_err, hash) => {
                     request.body.password = hash;
                     this.userRepository.save(request.body)
-                    .then(() => response.json("User Added!"))
-                    .catch(err => response.status(400).json("Error: " + err));
+                    .then(() => {return response.json({message: "User Added!"})})
+                    .catch(error => {return response.status(500).json({type: 'error', message: 'bcrypt error', error})});
                 });
             } 
             else {
-                response.json({ error: "User already exists" });
+                return response.status(403).json({type: 'error', message: 'User already exists'})
             }
         })
-        .catch(err => {
-            response.send("error: " + err);
+        .catch(error => {
+            return response.status(500).json({type: 'error', message: 'db error', error})
         });
     }
 

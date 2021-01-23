@@ -17,7 +17,8 @@
               {{user.username}}
             </a>
             <div class="navbar-dropdown">
-              <nuxt-link class="navbar-item" to="/profile" @click="checkMe">My Profile</nuxt-link>
+              <nuxt-link class="navbar-item" to="/profile">My Profile</nuxt-link>
+              <nuxt-link class="navbar-item" to="/users" @click="checkMe">Users</nuxt-link>
               <hr class="navbar-divider"/>
               <a class="navbar-item" @click="logOut">Logout</a>
             </div>

@@ -82,16 +82,15 @@ export default {
           name: this.name,
           email: this.email,
           password: this.password
-        })
-
-        await this.$auth.loginWith('local', {
-          data: {
-          email: this.email,
-          password: this.password
-          },
-        })
-
-        this.$router.push('/')
+        }).then(result => {
+            console.log('result', result)
+            this.error = result.data.message
+            this.$router.push('/login')
+          }).catch(error => {
+            if (error.response && error.response.data) {
+              this.error = error.response.data.message || error.response.status
+            }
+          })
       } catch (e) {
         this.error = e.response.data.message
       }
