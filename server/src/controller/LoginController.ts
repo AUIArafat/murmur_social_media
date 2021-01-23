@@ -26,11 +26,11 @@ export class LoginController {
                 bcrypt.compare(password, user.password, (error, result) => {
                     if (error) return response.status(500).json({type: 'error', message: 'bcrypt error', error})
                     if (result) {
-                      response.json({
+                      return response.json({
                         type: 'success',
                         message: 'User logged in.',
-                        user: {id: user.id, email: user.email, username: user.name},
-                        token: jwt.sign({id: user.id, email: user.email, username: user.name}, jwtConfig.secret, {expiresIn: '7d'})
+                        user: {id: user.id, email: user.email, username: user.name, created_at:user.created_at},
+                        token: jwt.sign({id: user.id, email: user.email, username: user.name, created_at:user.created_at}, jwtConfig.secret, {expiresIn: '7d'})
                       })
                     } else return response.status(403).json({type: 'error', message: 'Password is incorrect.'})
                   })

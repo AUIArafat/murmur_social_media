@@ -25,6 +25,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '~/plugins/vuetify.js',
     '~/api/init.js'
   ],
 
@@ -35,6 +36,8 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    // Simple usage
+    '@nuxtjs/vuetify',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -79,5 +82,10 @@ export default {
   // // },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    vendor: [
+      '~/plugins/vuetify.js'
+    ],
+    extractCSS: true,
+  },
 }
