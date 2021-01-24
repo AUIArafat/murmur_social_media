@@ -3,7 +3,7 @@
       <v-layout column justify-center align-center>
         <v-row dense>
           <UserInfo :userData="user"/>
-          <Murmurs />
+          <Murmurs :ispost="isPost"/>
           <Followers :followers="data"/>
         </v-row>
       </v-layout>
@@ -14,11 +14,11 @@ import UserInfo from "~/components/UserInfo"
 import Murmurs from "~/components/Murmurs"
 import Followers from "~/components/Followers"
 export default {
-  computed: {
-    user(){
-      return this.$store.state.auth ? this.$store.state.auth.user : null 
-    }
-  },
+    computed:{
+        user(){
+            return this.$store.state.auth ? this.$store.state.auth.user : null 
+        }
+    },
   async asyncData({ $axios }): Promise<object> {
     const res = await $axios.$get('users')
     console.log(res[0])
@@ -28,7 +28,8 @@ export default {
   },
   data() {
     return {
-        data:[]
+        data:[],
+        isPost: true
     }
   },
 }
