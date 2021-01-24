@@ -26,6 +26,20 @@
         <Notification :message="alert" v-if="alert"/>
         <v-card>
             <v-card-title class="headline">Murmur List</v-card-title>
+            <v-row dense>
+                <v-col  v-for="item in murmurs" :key="item.id" :cols="12">
+                    <v-card elevation="2" outlined>
+                        <v-card-title class="headline">{{item.text}}</v-card-title>
+                        <v-card-text>
+                        <p>Posted at {{item.created_at}}</p>
+                        </v-card-text>
+                        <v-card-actions>
+                        <v-btn color="default" text nuxt to="/"><v-icon>thumb_up </v-icon>({{item.like_count}})</v-btn>
+                        <v-btn color="default" text nuxt to="/"><v-icon>delete</v-icon></v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+         </v-row>
         </v-card>
     </v-col>
 </template>
@@ -37,7 +51,7 @@ export default {
         Notification,
     },
     name:"Murmurs",
-    props:['ispost'],
+    props:['ispost', 'murmurs'],
     methods:{
         async postMurmur(){
             if(this.text!== ''){
@@ -49,7 +63,13 @@ export default {
                     }).then(result => {
                         console.log('result', result)
                         this.text = '';
+                        this.murmurs.push(result);
+                        // [result].concat(this.murmurs)
+                        console.log('after result', result)
                         this.alert = result.text + " posted by " + this.user.name + " at " + result.created_at
+                        setTimeout(function () { 
+                            this.alert = '';
+                        }, 5000)
                     }).catch(error => {
                         if (error.response && error.response.data) {
                             this.alert = error.response.data.message || error.response.status
@@ -62,6 +82,10 @@ export default {
             }
             else{
                 this.alert = "Text is required!!!";
+                setTimeout(function () { 
+                    this.alert = '';
+                }, 5000)
+                console.log("all murmur : ", this.murmurs);
             }
         }
     },

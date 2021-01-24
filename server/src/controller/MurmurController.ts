@@ -23,4 +23,11 @@ export class MurmurController {
         await this.murmurRepository.remove(murmurToRemove);
     }
 
+    async getByUserId(request: Request, response: Response, next: NextFunction) {
+        return this.murmurRepository.find({
+            where: [{user_id:request.query.user_id}],
+            order: { created_at: 'DESC' }
+        });
+    }
+
 }
