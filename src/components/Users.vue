@@ -7,7 +7,7 @@
       <v-row dense>
           <v-col  v-for="item in users" :key="item.id" :cols="3">
       <v-card elevation="2" outlined>
-        <v-card-title class="headline">Hello, I'm {{item.name}}</v-card-title>
+        <v-card-title class="headline">Hello, I'm <nuxt-link class="navbar-item" :to="{ path: 'userdetails/'+item.id}">{{item.name}}</nuxt-link></v-card-title>
         <v-card-text>
           <p>Email: {{item.email}}</p>
           <p>Joined at {{item.created_at}}</p>

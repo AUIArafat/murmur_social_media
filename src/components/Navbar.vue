@@ -14,10 +14,10 @@
           <div class="navbar-item has-dropdown is-hoverable" v-if="this.$store.state.auth.user!==null">
             <!-- <div class="navbar-item has-dropdown is-hoverable"> -->
             <a class="navbar-link">
-              {{user.username}}
+              {{user.name}}
             </a>
             <div class="navbar-dropdown">
-              <nuxt-link class="navbar-item" to="/profile">My Profile</nuxt-link>
+              <nuxt-link class="navbar-item" to="/userdetails/me">My Profile</nuxt-link>
               <nuxt-link class="navbar-item" to="/users" @click="checkMe">Users</nuxt-link>
               <hr class="navbar-divider"/>
               <a class="navbar-item" @click="logOut">Logout</a>
