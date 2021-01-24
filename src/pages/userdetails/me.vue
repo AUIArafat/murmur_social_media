@@ -2,7 +2,7 @@
     <!-- <UserDetails :users="data" /> -->
       <v-layout column justify-center align-center>
         <v-row dense>
-          <UserInfo :user="user"/>
+          <UserInfo :userData="user"/>
           <Murmurs />
           <Followers :followers="data"/>
         </v-row>
