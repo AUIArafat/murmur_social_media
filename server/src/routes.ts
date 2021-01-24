@@ -59,6 +59,12 @@ export const Routes = [{
 },
 {
     method: "get",
+    route: "/api/murmurs/getByUserId",
+    controller: MurmurController,
+    action: "getByUserId"
+},
+{
+    method: "get",
     route: "/api/relationship",
     controller: RelationshipController,
     action: "all"
