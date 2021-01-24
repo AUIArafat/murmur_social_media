@@ -3,7 +3,7 @@
       <v-layout column justify-center align-center>
         <v-row dense>
           <UserInfo :userData="userData"/>
-          <Murmurs />
+          <Murmurs :ispost="isPost"/>
           <Followers :followers="data"/>
         </v-row>
       </v-layout>
@@ -30,7 +30,7 @@ export default {
     return {
         data:[],
         userData:null,
-        url: 'api/users/' + this.$route.params.id
+        isPost: false
     }
   },
 }

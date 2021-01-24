@@ -43,17 +43,17 @@ export const Routes = [{
     action: "all"
 }, {
     method: "get",
-    route: "/api/murmurs/:id",
+    route: "/api/me/murmurs/:id",
     controller: MurmurController,
     action: "one"
 }, {
     method: "post",
-    route: "/api/murmurs",
+    route: "/api/me/murmurs",
     controller: MurmurController,
     action: "save"
 }, {
     method: "delete",
-    route: "/api/murmurs/:id",
+    route: "/api/me/murmurs/:id",
     controller: MurmurController,
     action: "remove"
 },
