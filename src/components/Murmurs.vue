@@ -1,5 +1,5 @@
 <template>
-    <v-col :cols="6" dense>
+    <v-col :cols="9" dense>
         <v-card elevation="2" v-if="ispost">
             <v-card-title class="headline">Murmurs</v-card-title>
             <v-row dense method="post" @submit.prevent="postMurmur">
@@ -35,7 +35,7 @@
                         </v-card-text>
                         <v-card-actions>
                         <v-btn color="default" text nuxt to="/"><v-icon>thumb_up </v-icon>({{item.like_count}})</v-btn>
-                        <v-btn color="default" text nuxt to="/"><v-icon>delete</v-icon></v-btn>
+                        <v-btn color="default" text nuxt to="/" v-if="ispost"><v-icon>delete</v-icon></v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -67,9 +67,7 @@ export default {
                         // [result].concat(this.murmurs)
                         console.log('after result', result)
                         this.alert = result.text + " posted by " + this.user.name + " at " + result.created_at
-                        setTimeout(function () { 
-                            this.alert = '';
-                        }, 5000)
+                        setTimeout(() => this.alert = '', 5000);
                     }).catch(error => {
                         if (error.response && error.response.data) {
                             this.alert = error.response.data.message || error.response.status
@@ -78,13 +76,12 @@ export default {
                 }
                 catch(error){
                     this.alert = "Something Wrong!!!"
+                    setTimeout(() => this.alert = '', 5000);
                 }
             }
             else{
                 this.alert = "Text is required!!!";
-                setTimeout(function () { 
-                    this.alert = '';
-                }, 5000)
+                setTimeout(() => this.alert = '', 5000);
                 console.log("all murmur : ", this.murmurs);
             }
         }
