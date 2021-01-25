@@ -1,12 +1,14 @@
 <template>
     <!-- <UserDetails :users="data" /> -->
+    <v-app>
       <v-layout column justify-center align-center>
         <v-row dense>
-          <UserInfo :userData="user"/>
+          <UserInfo :userData="user" :isfollow="false"/>
           <Murmurs :ispost="isPost" :murmurs="murmurs"/>
-          <Followers :followers="data"/>
+          <!-- <Followers :followers="data"/> -->
         </v-row>
       </v-layout>
+    </v-app>
 </template>
 
 <script lang="ts">

@@ -1,12 +1,14 @@
 <template>
     <!-- <UserDetails :users="data" /> -->
+    <!-- <v-app> -->
       <v-layout column justify-center align-center>
         <v-row dense>
-          <UserInfo :userData="userData"/>
-          <Murmurs :ispost="isPost"/>
-          <Followers :followers="data"/>
+          <UserInfo :userData="userData" :isfollow="true"/>
+          <Murmurs :ispost="isPost" :murmurs="murmurs"/>
+          <!-- <Followers :followers="data"/> -->
         </v-row>
       </v-layout>
+    <!-- </v-app> -->
 </template>
 
 <script lang="ts">
@@ -23,12 +25,25 @@ export default {
             userData: res,
         }
    },
+   created() {
+        this.getUserMururs()
+    },
+    methods:{
+        getUserMururs(){
+            console.log("user is : ", this.user_id);
+            this.$axios.$get('murmurs/getByUserId?user_id='+this.user_id).then(result=>{
+                console.log("Murmur is : ", result);
+                this.murmurs = result;
+            })
+        }
+    },
   data() {
     return {
         data:[],
         userData:null,
         isPost: false,
-        murmurList: []
+        murmurs: [],
+        user_id: this.$route.params.id
     }
   },
 }

@@ -83,4 +83,17 @@ export const Routes = [{
     route: "/api/relationship/:id",
     controller: RelationshipController,
     action: "remove"
-}];
+},
+{
+    method: "get",
+    route: "/api/relationship/getFollowedRelation/:id",
+    controller: RelationshipController,
+    action: "getFollowedRelation"
+},
+{
+    method: "get",
+    route: "/api/relationship/getFollowerRelation/:id",
+    controller: RelationshipController,
+    action: "getFollowerRelation"
+}
+];

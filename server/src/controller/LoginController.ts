@@ -29,8 +29,8 @@ export class LoginController {
                       return response.json({
                         type: 'success',
                         message: 'User logged in.',
-                        user: {id: user.id, email: user.email, name: user.name, created_at:user.created_at},
-                        token: jwt.sign({id: user.id, email: user.email, name: user.name, created_at:user.created_at}, jwtConfig.secret, {expiresIn: '7d'})
+                        user: {id: user.id, email: user.email, name: user.name, created_at:user.created_at, relationships:user.relationships},
+                        token: jwt.sign({id: user.id, email: user.email, name: user.name, created_at:user.created_at, relationships:user.relationships}, jwtConfig.secret, {expiresIn: '7d'})
                       })
                     } else return response.status(403).json({type: 'error', message: 'Password is incorrect.'})
                   })
