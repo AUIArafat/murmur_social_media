@@ -22,20 +22,20 @@
                 </v-col>
                 <!-- </form> -->
             </v-row>
+            <Notification :message="alert" v-if="alert"/>
         </v-card>
-        <Notification :message="alert" v-if="alert"/>
         <v-card>
             <v-card-title class="headline">Murmur List</v-card-title>
             <v-row dense>
-                <v-col  v-for="item in murmurs" :key="item.id" :cols="12">
+                <v-col  v-for="item in murmurList" :key="item.id" :cols="12">
                     <v-card elevation="2" outlined>
                         <v-card-title class="headline">{{item.text}}</v-card-title>
                         <v-card-text>
                         <p>Posted at {{item.created_at}}</p>
                         </v-card-text>
                         <v-card-actions>
-                        <v-btn color="default" text nuxt to="/"><v-icon>thumb_up </v-icon>({{item.like_count}})</v-btn>
-                        <v-btn color="default" text nuxt to="/" v-if="ispost"><v-icon>delete</v-icon></v-btn>
+                        <v-btn color="default" text outlined @click="likeMurmur(item.id)"><v-icon>thumb_up </v-icon>({{item.like_count}})</v-btn>
+                        <v-btn color="default" text v-if="ispost" @click="deleteMurmur(item.id)" outlined><v-icon>delete</v-icon></v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -52,6 +52,16 @@ export default {
     },
     name:"Murmurs",
     props:['ispost', 'murmurs'],
+    computed: {
+        murmurList:{ 
+            get: function(){
+                return this.murmurs;
+            },
+            set: function(value) {
+                this.$emit('murmurList', value)
+            }
+        }
+    },
     methods:{
         async postMurmur(){
             if(this.text!== ''){
@@ -83,6 +93,49 @@ export default {
                 this.alert = "Text is required!!!";
                 setTimeout(() => this.alert = '', 5000);
                 console.log("all murmur : ", this.murmurs);
+            }
+        },
+        async deleteMurmur(id){
+            try{
+                await this.$axios.$delete('me/murmurs/'+id)
+                .then(result => {
+                    this.murmurs = this.murmurList.some(e=>{
+                        return e.id !== id;
+                    })
+                    this.alert = result.message + " by " + this.user.name
+                    setTimeout(() => this.alert = '', 5000);
+                }).catch(error => {
+                    if (error.response && error.response.data) {
+                        this.alert = error.response.data.message || error.response.status
+                        setTimeout(() => this.alert = '', 5000);
+                    }
+                })
+            }
+            catch(error){
+                this.alert = "Something Wrong!!!"
+                setTimeout(() => this.alert = '', 5000);
+            }
+        },
+        async likeMurmur(id){
+            try{
+                await this.$axios.$post('murmurs/likeMurmur/'+id)
+                .then(result => {
+                    console.log('result', result)
+                    this.murmurs.some(e=>{
+                        if(e.id === result.result.id){
+                            e.like_count = result.result.like_count;
+                        }
+                    })
+                }).catch(error => {
+                    if (error.response && error.response.data) {
+                        this.alert = error.response.data.message || error.response.status
+                        setTimeout(() => this.alert = '', 5000);
+                    }
+                })
+            }
+            catch(error){
+                this.alert = "Something Wrong!!!"
+                setTimeout(() => this.alert = '', 5000);
             }
         }
     },

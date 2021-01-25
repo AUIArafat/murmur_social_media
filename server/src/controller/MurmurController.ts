@@ -20,7 +20,16 @@ export class MurmurController {
 
     async remove(request: Request, response: Response, next: NextFunction) {
         let murmurToRemove = await this.murmurRepository.findOne(request.params.id);
-        await this.murmurRepository.remove(murmurToRemove);
+        try{
+            await this.murmurRepository.remove(murmurToRemove);
+            return response.json({
+                type:'success',
+                message: 'murmur deleted succesfully',
+            })
+        }
+        catch (err){
+            return response.status(500).json({type: 'error', message: err, err})
+        }
     }
 
     async getByUserId(request: Request, response: Response, next: NextFunction) {
@@ -28,6 +37,24 @@ export class MurmurController {
             where: [{user_id:request.query.user_id}],
             order: { created_at: 'DESC' }
         });
+    }
+
+    async likeMurmur(request: Request, response: Response, next: NextFunction) {
+        let murmur = await this.murmurRepository.findOne(request.params.id);
+        murmur.like_count = murmur.like_count+1;
+        try{
+            await this.murmurRepository.save(murmur)
+            .then((murmur) => {
+                return response.json({
+                    type: 'success',
+                    message: 'Murmur like count updated added!!!',
+                    result: murmur,
+                  })
+            })
+        }
+        catch (err){
+
+        }
     }
 
 }
