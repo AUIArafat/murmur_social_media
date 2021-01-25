@@ -1,6 +1,6 @@
 <template>
     <!-- <UserDetails :users="data" /> -->
-    <v-app>
+    <!-- <v-app> -->
       <v-layout column justify-center align-center>
         <v-row dense>
           <UserInfo :userData="user" :isfollow="false"/>
@@ -8,7 +8,7 @@
           <!-- <Followers :followers="data"/> -->
         </v-row>
       </v-layout>
-    </v-app>
+    <!-- </v-app> -->
 </template>
 
 <script lang="ts">

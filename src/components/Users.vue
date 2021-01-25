@@ -13,12 +13,12 @@
                 <p>Joined at {{item.created_at}}</p>
               </v-card-text>
               <!-- {{relationships}} -->
-                <v-card-actions v-if="relationships.some(e => e.followed_id === item.id)">
+                <!-- <v-card-actions v-if="relationships.some(e => e.followed_id === item.id)">
                   <v-btn color="info" text v-on:click="followUser(e.id)" outlined><v-icon>mdi-minus</v-icon> Unfollow</v-btn>
                 </v-card-actions>
                 <v-card-actions v-else>
                   <v-btn color="success" text v-on:click="unFollowUser(item.id)" outlined><v-icon>mdi-plus</v-icon> Follow</v-btn>
-                </v-card-actions>
+                </v-card-actions> -->
             </v-card>
       </v-col>
          </v-row>

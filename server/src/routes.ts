@@ -64,6 +64,12 @@ export const Routes = [{
     action: "getByUserId"
 },
 {
+    method: "post",
+    route: "/api/murmurs/likeMurmur/:id",
+    controller: MurmurController,
+    action: "likeMurmur"
+},
+{
     method: "get",
     route: "/api/relationship",
     controller: RelationshipController,
