@@ -1,6 +1,6 @@
 <template>
 <v-app>
-    <v-col :cols="12">
+    <v-col :cols="11">
         <v-card elevation="2">
             <v-card-title class="headline">This is, {{userData.name}}</v-card-title>
             <v-card-text>
@@ -22,6 +22,32 @@
             </div>
         </v-card>
     </v-col>
+    <v-card-title>Followed ({{followerCount}})</v-card-title>
+    <v-row dense v-if="followerCount!==0">
+          <v-col v-for="item in follower" :key="item.id" :cols="12">
+            <v-card elevation="2">
+              <v-card-title class="headline" v-if="user.id === item.id">Hello, I'm <nuxt-link class="navbar-item" to="me">{{item.name}}</nuxt-link></v-card-title>
+              <v-card-title class="headline" v-else>Hello, I'm <nuxt-link class="navbar-item" :to="{path:item.id}">{{item.name}}</nuxt-link></v-card-title>
+              <v-card-text>
+                <p>Email: {{item.email}}</p>
+                <p>Joined at {{item.created_at}}</p>
+              </v-card-text>
+            </v-card>
+      </v-col>
+    </v-row>
+    <v-card-title>Followed ({{follwedCount}})</v-card-title>
+    <v-row dense v-if="follwedCount!==0">
+      <v-col v-for="item in followed" :key="item.id" :cols="12">
+            <v-card elevation="2">
+              <v-card-title class="headline" v-if="user.id === item.id">Hello, I'm <nuxt-link class="navbar-item" to="me">{{item.name}}</nuxt-link></v-card-title>
+              <v-card-title class="headline" v-else>Hello, I'm <nuxt-link class="navbar-item" :to="{path:item.id}">{{item.name}}</nuxt-link></v-card-title>
+              <v-card-text>
+                <p>Email: {{item.email}}</p>
+                <p>Joined at {{item.created_at}}</p>
+              </v-card-text>
+            </v-card>
+      </v-col>
+         </v-row>
 </v-app>
 </template>
 
@@ -86,12 +112,14 @@ export default{
       async getFollowedCount(){
           await this.$axios.$get('relationship/getFollowedRelation/'+this.userData.id)
           .then(result=>{
+              this.followed = result;
               this.follwedCount = result.length;
           })
       },
        async getFollowerCount(){
           await this.$axios.$get('relationship/getFollowerRelation/'+this.userData.id)
           .then(result=>{
+              this.follower = result;
               this.followerCount = result.length;
           })
       },
@@ -104,7 +132,9 @@ export default{
         isFollowing:false,
         relationship_id:null,
         follwedCount:0,
-        followerCount:0
+        followerCount:0,
+        follower:[],
+        followed:[]
       }
     }
 }

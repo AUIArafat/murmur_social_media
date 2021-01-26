@@ -17,6 +17,8 @@
               {{user.name}}
             </a>
             <div class="navbar-dropdown">
+              <nuxt-link class="navbar-item" to="/">Timeline</nuxt-link>
+              <hr class="navbar-divider"/>
               <nuxt-link class="navbar-item" to="/userdetails/me">My Profile</nuxt-link>
               <nuxt-link class="navbar-item" to="/users" @click="checkMe">Users</nuxt-link>
               <hr class="navbar-divider"/>

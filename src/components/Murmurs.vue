@@ -1,5 +1,5 @@
 <template>
-    <v-col :cols="9" dense>
+    <v-col :cols="8" dense>
         <v-card elevation="2" v-if="ispost">
             <v-card-title class="headline">Murmurs</v-card-title>
             <v-row dense method="post" @submit.prevent="postMurmur">
@@ -102,6 +102,11 @@ export default {
                     this.murmurs = this.murmurList.some(e=>{
                         return e.id !== id;
                     })
+                    for(var i=0;i<this.murmurs.length;i++){
+                        if(this.murmurs[i].id === id){
+                            this.murmurs.splice(i, 1); 
+                        }
+                    }
                     this.alert = result.message + " by " + this.user.name
                     setTimeout(() => this.alert = '', 5000);
                 }).catch(error => {
