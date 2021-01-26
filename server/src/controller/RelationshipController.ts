@@ -41,14 +41,20 @@ export class RelationshipController {
     }
 
     async getFollowedRelation(request: Request, response: Response, next: NextFunction){
-        return await this.relationshipRepository.find({
-            where:[{followed_id:request.params.id}]
-        })
+        // return await this.relationshipRepository.find({
+        //     where:[{followed_id:request.params.id}]
+        // })
+        return await this.relationshipRepository.query(`SELECT U.* from Relationship R RIGHT JOIN 
+                                                        User U ON U.id=R.follower_id
+                                                        WHERE R.followed_id='${request.params.id}'`)
     }
 
     async getFollowerRelation(request: Request, response: Response, next: NextFunction){
-        return await this.relationshipRepository.find({
-            where:[{follower_id:request.params.id}]
-        })
+        // return await this.relationshipRepository.find({
+        //     where:[{follower_id:request.params.id}]
+        // })
+        return await this.relationshipRepository.query(`SELECT U.* from Relationship R RIGHT JOIN 
+                                                        User U ON U.id=R.followed_id
+                                                        WHERE R.follower_id='${request.params.id}'`)
     }
 }

@@ -1,13 +1,14 @@
-import {getRepository} from "typeorm";
+import {createQueryBuilder, getRepository} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import {Murmur} from "../entity/Murmur";
+import { User } from "../entity/User";
 
 export class MurmurController {
 
     private murmurRepository = getRepository(Murmur);
 
     async all(request: Request, response: Response, next: NextFunction) {
-        return this.murmurRepository.find();
+        return await this.murmurRepository.query(`select M.*, U.name from murmur M LEFT JOIN User U ON U.id=M.user_id`)
     }
 
     async one(request: Request, response: Response, next: NextFunction) {
