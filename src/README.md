@@ -1,5 +1,3 @@
-# goandup-test-for-venturas
-
 ## Build Setup
 
 ```bash
